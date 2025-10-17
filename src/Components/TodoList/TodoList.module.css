@@ -1,0 +1,9 @@
+.todoList{
+    margin-top: 20px;
+}
+
+.emptyMessage{
+    font-style: italic;
+    color: gray;
+    text-align: center;
+}
