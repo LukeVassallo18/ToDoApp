@@ -8,6 +8,35 @@
     margin: 5px 0;
     border-radius: 5px;
 }
+
+.todoItem.completed{
+    background-color: #57c957;
+    opacity: 0.8;
+}
+
+.todoContent{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex:1;
+}
+
+.checkbox{
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.todoText{
+    flex:1;
+    transition: text-decoration 0.3s ease;
+}
+
+.todoText.completed{
+    text-decoration: line-through;
+    color: #666;
+}
+
 .deleteButton {
     background-color: #ff4d4d;
     color: white;
