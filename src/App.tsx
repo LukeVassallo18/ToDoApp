@@ -34,12 +34,17 @@ const ToDoApp: React.FC = () => {
     setTodos(todos.map(todo => (todo.id === id ? {... todo, completed: !todo.completed} : todo)))
   }
 
+  // Edit a todo's text
+  const editTodo = (id: number, newText: string) => {
+    setTodos(todos.map(todo => (todo.id === id ? {...todo, text: newText} : todo)))
+  }
+
   return(
     // Render the main application UI
     <div className={styles.App}>
       <h1 className={styles.header}>My Awesome To Do App</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      <TodoList todos={todos} onDeleteTodo={deleteTodo} onToggleTodo={toggleTodo} />
+      <TodoList todos={todos} onDeleteTodo={deleteTodo} onToggleTodo={toggleTodo} onEditTodo={editTodo} />
       <div className={styles.todoCount}>Total To Dos: {todos.length}</div>
     </div>
   )
