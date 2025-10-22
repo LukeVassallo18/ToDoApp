@@ -9,14 +9,15 @@ export interface TodoItemProps{
     // defining the type using semicolon
     onDelete: (id:number) => void;
     onToggle: (id:number) => void;
-    onEdit: (id:number, newText:string) => void;
+    onEdit: (id:number, editedText:string) => void;
 }
 
 export interface TodoListProps{
     todos: Todo[];
     onDeleteTodo: (id:number) => void;
     onToggleTodo: (id:number) => void;
-    onEditTodo: (id:number, newText:string) => void;
+    onEditTodo: (id:number, editedText:string) => void;
+    filter: 'all' | 'active' | 'completed';
 }
 
 export interface AddTodoFormProps{

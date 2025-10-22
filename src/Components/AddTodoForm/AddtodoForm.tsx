@@ -20,11 +20,14 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
   return(
     <form className={styles.form} onSubmit={handleSubmit}>
         
-      <input type="text" placeholder='Enter a new todo..' className={styles.input} 
+      <input type="text" placeholder='Add a new task...' className={styles.input} 
       value={inputValue} onChange={(buttonClick) => 
       setInputValue(buttonClick.target.value)} />
 
-      <button type='submit' className={styles.submitButton}>Add</button>
+      <button type='submit' className={styles.submitButton}>
+        <i className="fas fa-plus"></i>
+        Add
+      </button>
     </form>
   )
 }
