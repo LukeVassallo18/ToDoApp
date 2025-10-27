@@ -2,6 +2,7 @@ export interface Todo {
   id: number;
   text: string;
   completed: boolean;
+  priority: 'low' | 'medium' | 'high';
 }
 
 export interface TodoItemProps{
@@ -21,6 +22,6 @@ export interface TodoListProps{
 }
 
 export interface AddTodoFormProps{
-    onAddTodo: (text:string) => void;
+    onAddTodo: (text:string, priority: 'low' | 'medium' | 'high') => void;
 }
 

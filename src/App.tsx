@@ -14,13 +14,17 @@ const ToDoApp: React.FC = () => {
   // State to hold the current filter
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
 
+  // State to hold the current priority filter
+  const [priorityFilter, setPriorityFilter] = useState<'all' | 'low' | 'medium' | 'high'>('all');
 
-  const addTodo = (todoText: string) => {
+
+  const addTodo = (todoText: string, priority: 'low' | 'medium' | 'high') => {
     // Create a new todo item
     const newTodo: Todo = {
       id: Date.now(),
       text: todoText,
-      completed: false
+      completed: false,
+      priority: priority
     }
     // Update the todos state with the new todo using functional update
     // using spread operator which spreads all existing todos into a new array
@@ -28,9 +32,16 @@ const ToDoApp: React.FC = () => {
     setTodos(prev => [...prev, newTodo]);
   }
 
+  // This function recieves the id of the to-do we want to delete
+  // Then it calls setTodos() with a new array created by .filter()
+  // .filter() loops through all todos and keeps only those whose id does
+  // not match the one to delete
   const deleteTodo = (id: number) => {
     // Type the callback parameter to avoid implicit any
+    // prev is the current array of todos (the old state before updating the new array)
+    // [...] is the spread operator, it takes all elements from the array and creates a new array
     setTodos(prev => prev.filter((todo: Todo) => todo.id !== id));
+    // The result is a new array with the specified todo removed
   }
 
   // Toggle the completed status of a todo
@@ -53,6 +64,13 @@ const ToDoApp: React.FC = () => {
     ));
   };
 
+  // Clear all completed todos
+  // .filter() creates a new array with only the todos that are not completed (where completed is false)
+  const clearCompleted = () => {
+    // Filter out completed todos, keeping only active ones
+    setTodos(todos.filter(todo => !todo.completed));
+  };
+
 
   // create a function that takes the full todo list and add a filter type
   const filteredTodos = (todos: Todo[], filter: 'all' | 'active' | 'completed'): Todo[] => {
@@ -69,7 +87,18 @@ const ToDoApp: React.FC = () => {
     }
   }
 
-  const filteredTodoList = filteredTodos(todos, filter);
+  // Filter by priority
+  const filterByPriority = (todos: Todo[], priorityFilter: 'all' | 'low' | 'medium' | 'high'): Todo[] => {
+    if (priorityFilter === 'all') {
+      return todos;
+    }
+    return todos.filter(todo => todo.priority === priorityFilter);
+  }
+
+  // Apply both filters
+  const statusFilteredTodos = filteredTodos(todos, filter);
+  const filteredTodoList = filterByPriority(statusFilteredTodos, priorityFilter);
+
   const totalTodos = todos.length;
   const activeTodos = todos.filter(todo => !todo.completed).length;
   const completedTodos = todos.filter(todo => todo.completed).length;
@@ -93,8 +122,32 @@ const ToDoApp: React.FC = () => {
         <button className={`${styles.filterButton} ${filter === 'completed' ? styles.active : ''}`} onClick={() => setFilter('completed')}>
           <i className="fas fa-check"></i> Completed
         </button>
+        {/* Only show Clear Completed button when there are completed todos 
+            This is like an if statement in JSX.... if there are more than 0 completed todos, && means then do the next part
+        */}
+        {completedTodos > 0 && (
+          <button className={styles.clearButton} onClick={clearCompleted}>
+            <i className="fas fa-trash-alt"></i> Clear Completed
+          </button>
+        )}
       </div>
-      {/* To Do List Component - displays the list of to-dos */}
+
+      {/* Priority filter buttons */}
+      <div className={styles.priorityFilters}>
+        <span className={styles.filterLabel}>Priority:</span>
+        <button className={`${styles.priorityFilterButton} ${priorityFilter === 'all' ? styles.activePriority : ''}`} onClick={() => setPriorityFilter('all')}>
+          All
+        </button>
+        <button className={`${styles.priorityFilterButton} ${styles.highPriority} ${priorityFilter === 'high' ? styles.activePriority : ''}`} onClick={() => setPriorityFilter('high')}>
+          🔴 High
+        </button>
+        <button className={`${styles.priorityFilterButton} ${styles.mediumPriority} ${priorityFilter === 'medium' ? styles.activePriority : ''}`} onClick={() => setPriorityFilter('medium')}>
+          🟡 Medium
+        </button>
+        <button className={`${styles.priorityFilterButton} ${styles.lowPriority} ${priorityFilter === 'low' ? styles.activePriority : ''}`} onClick={() => setPriorityFilter('low')}>
+          🟢 Low
+        </button>
+      </div>
 
       <TodoList todos={filteredTodoList} onDeleteTodo={deleteTodo} onToggleTodo={toggleTodo} onEditTodo={editTodo} filter={filter} />
 

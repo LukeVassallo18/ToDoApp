@@ -74,3 +74,41 @@
     transform: translateY(0);
   }
 }
+
+
+.prioritySelect {
+  padding: 16px 20px;
+  font-size: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  cursor: pointer;
+  font-weight: 500;
+  outline: none;
+  padding-right: 45px;
+  position: relative;
+  z-index: 1;
+}
+
+.prioritySelect:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.prioritySelect:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.prioritySelect option {
+  padding: 12px;
+  background: white;
+  color: #333;
+  font-weight: 500;
+}

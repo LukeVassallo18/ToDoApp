@@ -13,6 +13,20 @@ const TodoItem: React.FC<TodoItemProps> = ({todo, onDelete, onToggle, onEdit}) =
   // setEditedText is the function we will be using to update the edited text.
   const [editedText, setEditedText] = useState(todo.text);
 
+  // Get priority icon
+  const getPriorityIcon = () => {
+    switch (todo.priority) {
+      case 'high':
+        return '🔴';
+      case 'medium':
+        return '🟡';
+      case 'low':
+        return '🟢';
+      default:
+        return '⚪';
+    }
+  };
+
   // when the user wants to save
   const handleSave = () => {
     // if the text is not empty
@@ -38,6 +52,7 @@ const TodoItem: React.FC<TodoItemProps> = ({todo, onDelete, onToggle, onEdit}) =
 
       <div className={styles.todoContent}>
 
+        <span className={styles.priorityBadge}>{getPriorityIcon()}</span>
         <input type="checkbox" className={styles.checkbox} onChange={() => onToggle(todo.id)} checked={todo.completed} />
         {/* This part or this part 
 
